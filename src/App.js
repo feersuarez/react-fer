@@ -2,42 +2,43 @@ import {useState} from 'react';
 import './App.css';
 
 function App() {
-  const[tareas,actualizarTareas] =useState([]);
+  const[deseos,actualizarDeseos] =useState([]);
   const[contador,actualizarContador]=useState(0);
-  function anyadirTarea(nuevaTarea){
+  function anyadirDeseo(nuevoDeseo){
     //console.log(nuevaTarea);
-    actualizarTareas([...tareas,nuevaTarea]);//actualiza las tareas del estado
+    actualizarDeseos([...deseos,nuevoDeseo]);
     actualizarContador(contador+1);
   }
-  function eliminarTarea(tarea){
-    let index=tareas.indexOf(tarea);
-    tareas.splice(index,1);
-    actualizarTareas([...tareas]);
+  function eliminarDeseo(deseo){
+    let index=deseos.indexOf(deseo);
+    deseos.splice(index,1);
+    actualizarDeseos([...deseos]);
   }
-  function EditarTarea(tarea){
-    let index=tareas.indexOf(tarea);
-    let editada=prompt("Edita esta tarea");
-    tareas.splice(index,1,editada);
-    actualizarTareas([...tareas]);
+  function EditarDeseo(deseo){
+    let index=deseos.indexOf(deseo);
+    let editada=prompt("Edita este deseo");
+    deseos.splice(index,1,editada);
+    actualizarDeseos([...deseos]);
   }
   return (
 
     <div className="App">
 
-      <h1>LISTA DE TAREAS(EJEMPLO REACT)</h1>
-      <p>Has añadido {contador} tareas en total...Animo!</p>
-      <input type="text" id="nuevaTarea"></input>
-      <button onClick={()=>anyadirTarea(document.getElementById("nuevaTarea").value)}>Añadir tarea</button>
+      <h1 id="titulo">LISTA DE LOS DESEOS</h1>
+      <p>Has añadido {contador} deseos en total. Todos se cumplirán❤️.</p>
+      <input type="text" id="nuevoDeseo"></input>
+      <button onClick={()=>anyadirDeseo(document.getElementById("nuevoDeseo").value)}>Añadir deseo</button>
       {
-        tareas.map(tarea=>
-          <div className="tarea">
-            <li key={tarea}>{tarea}</li>
-            <p onClick={()=>EditarTarea(tarea)}>modificar</p>
-            <p onClick={()=>eliminarTarea(tarea)}>eliminar</p>
+        deseos.map(deseo=>
+          <div className="deseo">
+            <li key={deseo} id="deseo">{deseo}</li>
+            <p onClick={()=>EditarDeseo(deseo)} class="borrarModificar">modificar</p>
+            <p onClick={()=>eliminarDeseo(deseo)} class="borrarModificar">eliminar</p>
+            <p>--------------------------------</p>
           </div>
           )
       }
-      <p>{contador-tareas.length} de {contador} tareas terminadas</p>
+      <p>{contador-deseos.length} de {contador} deseos cumplidos</p>
     </div>
   );
 }
